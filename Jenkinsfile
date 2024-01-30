@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'c1l2o3u4d5/todoapp'
+        DOCKER_IMAGE = 'todoapp'
     }
 
     stages {
@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     // Push the Docker image to a container registry (replace 'your-registry' with your actual registry)
-                    docker.withRegistry('https://hub.docker.com/repository/docker/c1l2o3u4d5/todoappl/general', 'docker-hub-credentials') {
+                    docker.withRegistry('', 'docker-hub-credentials') {
                         docker.image(env.DOCKER_IMAGE).push()
                     }
                 }
