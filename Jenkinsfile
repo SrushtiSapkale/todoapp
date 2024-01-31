@@ -17,15 +17,14 @@ pipeline {
     }
 
     stage('Push Docker Image') {
-      steps {
+    steps {
         script {
-          docker.withRegistry('https://hub.docker.com/', 'docker-hub-credentials') {
-            docker.image(env.DOCKER_IMAGE).push()
-          }
+            docker.withRegistry('https://hub.docker.com/', 'docker-hub-credentials') {
+                docker.image(env.DOCKER_IMAGE).push()
+            }
         }
-
-      }
     }
+}
 
     stage('Deploy to Docker') {
       steps {
