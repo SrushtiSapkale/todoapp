@@ -21,31 +21,9 @@ pipeline {
         script {
             docker.withRegistry('https://hub.docker.com/', 'docker-hub-credentials') {
                 docker.image(env.DOCKER_IMAGE).push()
+            docker.image(env.DOCKER_IMAGE).run('-p 8083:3000 --name todoapp -d')
             }
         }
     }
 }
-
-    stage('Deploy to Docker') {
-      steps {
-        script {
-          docker.image(env.DOCKER_IMAGE).run('-p 8083:3000 --name todoapp -d')
-        }
-
-      }
-    }
-
-  }
-  environment {
-    DOCKER_IMAGE = 'todoappl'
-  }
-  post {
-    always {
-      script {
-        docker.image(env.DOCKER_IMAGE).remove()
-      }
-
-    }
-
-  }
 }
