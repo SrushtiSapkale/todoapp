@@ -18,7 +18,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://hub.docker.com/', 'docker-hub-credentials') {
+                    docker.withRegistry('https://hub.docker.com/v2/', 'docker-hub-credentials') {
                         docker.image(env.DOCKER_IMAGE).push()
                         docker.image(env.DOCKER_IMAGE).run('-p 8083:3000 --name todoapp -d')
                     }
