@@ -1,16 +1,14 @@
 pipeline {
     agent any
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
+        environment{
+            registry = 'todoappl'
         }
 
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build env.DOCKER_IMAGE
+                    dockerImage = docker.build registry
                 }
             }
         }
@@ -18,12 +16,20 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://hub.docker.com/v2/', 'docker-hub-credentials') {
-                        docker.image(env.DOCKER_IMAGE).push()
-                        docker.image(env.DOCKER_IMAGE).run('-p 8083:3000 --name todoapp -d')
+                    docker.withRegistry( '', docker-hub-credentials) {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+        stage('Deploy Docker Image') {
+            steps {
+                script {
+                     sh 'docker run -p 8083:80 todoappl'
                     }
                 }
             }
         }
     }
+    
 }
