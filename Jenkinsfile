@@ -19,7 +19,7 @@ pipeline {
     stage('Push Docker Image') {
       steps {
         script {
-          docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
+          docker.withRegistry('https://hub.docker.com/', 'docker-hub-credentials') {
             docker.image(env.DOCKER_IMAGE).push()
           }
         }
@@ -38,7 +38,7 @@ pipeline {
 
   }
   environment {
-    DOCKER_IMAGE = 'todoapp'
+    DOCKER_IMAGE = 'todoappl'
   }
   post {
     always {
