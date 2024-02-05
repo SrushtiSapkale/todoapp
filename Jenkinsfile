@@ -1,6 +1,7 @@
 pipeline {
     agent any
     environment {
+        registry = "c1l2o3u4d5/todoappl"
         registryCredential = 'docker-hub-credentials'
         dockerImage = ''
     }
@@ -9,7 +10,7 @@ pipeline {
             steps {
                 echo 'Building the ToDo application on Docker'
                 script {
-                    dockerImage = docker.build 'todoappl'
+                    dockerImage = docker.build registry
                 }
             }
         }
