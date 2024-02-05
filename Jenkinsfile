@@ -27,11 +27,11 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying the application on Docker'
-                      script {
-                    docker.image(dockerImage).withRun('-p 3000:3000') { container ->
+                     
+                docker.image(dockerImage).withRun('-p 3000:3000') { container ->
                         // Additional steps or configurations if needed inside the running container
                     }
-                }
+                
             }
         }
     }
