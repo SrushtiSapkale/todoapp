@@ -4,20 +4,26 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the ToDo application on Docker'
-                def env = docker.build 'todoappl'
+                script {
+                    def env = docker.build 'todoappl'
+                }
             }
         }
         stage('Push') {
             steps {
-                echo 'Building the ToDo application on Docker'
-                env.push()
+                echo 'Pushing the ToDo application Docker image'
+                script {
+                    env.push()
+                }
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Deploying the application on Docker'
-                docker.image('todoappl').withRun('-p 3000:3000')
-                //sh 'docker run -p 3000:3000 -d todoappl'
+                script {
+                    docker.image('todoappl').withRun('-p 3000:3000')
+                    // or use sh 'docker run -p 3000:3000 -d todoappl'
+                }
             }
         }
     }
