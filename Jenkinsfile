@@ -12,9 +12,10 @@ pipeline {
         stage('Push') {
             steps {
                 echo 'Pushing the ToDo application Docker image'
-                script {
-                env.push()
-                }
+                 script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                        env.push()
+                    }
             }
         }
         stage('Deploy') {
