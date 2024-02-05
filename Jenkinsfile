@@ -9,7 +9,7 @@ pipeline {
             steps {
                 echo 'Building the ToDo application on Docker'
                 script {
-                    def env = docker.build 'todoappl'
+                    env = docker.build 'todoappl'
                 }
             }
         }
