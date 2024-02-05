@@ -1,35 +1,17 @@
 pipeline {
     agent any
     stages {
-        environment{
-            registry = 'todoappl'
-        }
-
-        stage('Build Docker Image') {
+        stage('Build') {
             steps {
-                script {
-                    dockerImage = docker.build registry
-                }
+                echo 'Building the ToDo application on Docker'
+                sh 'docker build . -t todoappl'
             }
         }
-
-        stage('Push Docker Image') {
+        stage('Deploy') {
             steps {
-                script {
-                    docker.withRegistry( '', docker-hub-credentials) {
-                        dockerImage.push()
-                    }
-                }
-            }
-        }
-        stage('Deploy Docker Image') {
-            steps {
-                script {
-                     sh 'docker run -p 8083:80 todoappl'
-                    }
-                }
+                echo 'Deploying the application on Docker'
+                sh 'docker run -p 3000:3000 -d todoappl'
             }
         }
     }
-    
 }
