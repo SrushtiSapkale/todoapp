@@ -17,9 +17,9 @@ pipeline {
             steps {
                 echo 'Pushing the ToDo application Docker image'
                 script {
-                   
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
                         env.push()
-                    
+                    }
                 }  
             }
         }
