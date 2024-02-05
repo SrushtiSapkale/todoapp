@@ -1,15 +1,15 @@
 pipeline {
     agent any
     environment {
-      
-        env = ''
+        registryCredential = 'docker-hub-credentials'
+        dockerImage = ''
     }
     stages {
         stage('Build') {
             steps {
                 echo 'Building the ToDo application on Docker'
                 script {
-                    env = docker.build 'todoappl'
+                    dockerImage = docker.build 'todoappl'
                 }
             }
         }
@@ -17,16 +17,16 @@ pipeline {
             steps {
                 echo 'Pushing the ToDo application Docker image'
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-                        env.push()
+                    docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
+                        dockerImage.push()
                     }
-                }  
+                }
             }
         }
         stage('Deploy') {
             steps {
+                echo 'Deploying the application on Docker'
                 script {
-                    echo 'Deploying the application on Docker'
                     docker.image('todoappl').withRun('-p 3000:3000')
                     // or use sh 'docker run -p 3000:3000 -d todoappl'
                 }
