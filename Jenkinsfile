@@ -3,7 +3,7 @@ pipeline {
     environment {
         registry = "c1l2o3u4d5/todoappl"
         registryCredential = 'docker-hub-credentials'
-        dockerImage = ''
+        dockerImage = '' 
     }
     stages {
         stage('Build') {
