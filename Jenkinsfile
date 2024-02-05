@@ -16,7 +16,11 @@ pipeline {
         stage('Push') {
             steps {
                 echo 'Pushing the ToDo application Docker image'
-                env.push()
+                script {
+                   
+                        env.push()
+                    
+                }  
             }
         }
         stage('Deploy') {
