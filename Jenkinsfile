@@ -29,11 +29,8 @@ pipeline {
                 echo 'Deploying the application on Docker'
                      
                 script {
-                    def deployedContainer = docker.container('todoappl').run('-p 3000:3000')
-            // Additional configuration or operations if needed
-                    deployedContainer.stop()
-                        // Additional steps or configurations if needed inside the running container
-                    }
+                  sh 'docker run -p 3000:3000 -d todoappl'
+                }
                 }
                 
             }
