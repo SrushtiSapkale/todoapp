@@ -12,22 +12,20 @@ pipeline {
         stage('Push') {
             steps {
                 echo 'Pushing the ToDo application Docker image'
-                 script {
+                script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
                         env.push()
                     }
+                }
             }
         }
         stage('Deploy') {
             steps {
-                script{
-                echo 'Deploying the application on Docker'
-               
-                docker.image('todoappl').withRun('-p 3000:3000')
-                // or use sh 'docker run -p 3000:3000 -d todoappl'
+                script {
+                    echo 'Deploying the application on Docker'
+                    docker.image('todoappl').withRun('-p 3000:3000')
+                    // or use sh 'docker run -p 3000:3000 -d todoappl'
                 }
-                
-                
             }
         }
     }
