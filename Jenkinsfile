@@ -20,10 +20,10 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying the application on Docker'
-                script {
-                    docker.image('todoappl').withRun('-p 3000:3000')
+               
+                docker.image('todoappl').withRun('-p 3000:3000')
                     // or use sh 'docker run -p 3000:3000 -d todoappl'
-                }
+                
             }
         }
     }
