@@ -17,7 +17,7 @@ pipeline {
             steps {
                 echo 'Pushing the ToDo application Docker image'
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
+                    docker.withRegistry('c1l2o3u4d5/todoappl', registryCredential) {
                         dockerImage.push()
                     }
                 }
