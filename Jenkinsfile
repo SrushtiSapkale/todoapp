@@ -28,7 +28,7 @@ pipeline {
             steps {
                 echo 'Deploying the application on Docker'
                 script {
-                    docker.image("${registry}:${BUILD_NUMBER}").withRun('-p 3000:3000')
+                    docker.image(dockerImage).withRun('-p 3000:3000')
                     // or use sh 'docker run -p 3000:3000 -d todoappl'
                 }
             }
